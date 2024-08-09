@@ -12,6 +12,7 @@ import com.example.appmotivation.R
 import com.example.appmotivation.data.Mock
 import com.example.appmotivation.infra.SecurityPreferences
 import com.example.appmotivation.databinding.ActivityMainBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -120,9 +121,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun handleUserName() {
         val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
         if (name == "") {
-            binding.textHello.text = "Usuário"
+            binding.textHello.text = "${getString(R.string.user)}"
         } else {
-            binding.textHello.text = "Olá, $name!"
+            binding.textHello.text = "${getString(R.string.hello)} $name!"
         }
     }
 
@@ -130,6 +131,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      * Atualiza frase de motivação
      * */
     private fun handleNextPhrase() {
-        binding.textMotivation.text = Mock().getPhrase(categoryId)
+        binding.textMotivation.text = Mock().getPhrase(categoryId, Locale.getDefault().language)
     }
 }
